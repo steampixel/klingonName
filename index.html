@@ -1,0 +1,190 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <div class="container">
+        
+        <h1>Klingon Name Generator <sub>V2</sub></h1>
+        
+        <div class="jumbotron">
+
+            <p id="name_display"></p>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                
+                <div id="description_display"></div>
+                
+            </div>
+        </div>
+        
+        <hr>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        
+        <div class="col-md-4">
+            <h2>Generate</h2>
+            
+            <input class="btn btn-success" type="button" id="random_name_button" value="Get a random name" />
+            <input class="btn btn-success" type="button" id="translate_name_button" value="Translate your Name" />
+            
+        </div>
+        
+        <div class="col-md-4">
+            <h2>Seed</h2>
+            <p>
+                First name: <input type="text" class="defaultText" title="Type in your first name" id="first_name" name="first_name" />
+            </p>
+            <p>
+                Last name: <input type="text" class="defaultText" title="Type in your last name" id="last_name" name="last_name" />
+            </p>
+            <p>
+                Gender: 
+                <select id="select_gender">
+                    <option value="male" selected="selected">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </p>
+       </div>
+        <div class="col-md-4">
+        
+            <h2>Display</h2>
+            <p>
+                <input type="checkbox" id="enable_ipa"/><label for="enable_ipa">Show International Phonetic Alphabet (Ipa)</label>
+            </p>
+            
+            <p>
+                <input type="checkbox" id="enable_hyphenation"/><label for="enable_hyphenation">Show hyphenation between syllables</label>
+            </p>
+            
+            <p>
+                <input type="checkbox" id="enable_split"/><label for="enable_split">Split phonemes</label>
+            </p>
+            
+            <p>
+                <input type="checkbox" id="enable_description"/><label for="enable_description">Show a description for each phoneme</label>
+            </p>
+
+        </div>
+      </div>
+        
+        <hr>
+        
+        <h2>Follow the Project on GitHub</h2>
+        
+        This project is open source and available on GitHub. Feel free to use the source in your commercial and non commercial projects. If you want create a backlink to this page.
+        
+      <hr>
+        
+        <h2>JavaScript API</h2>
+        
+        <h3>Getting started</h3>
+        
+        <p>To use the generator in your own scripts just include the klingonName.js into your projects:</p>
+<pre>
+&lt;script src="js/klingonName.js"&gt;&lt;/script&gt;
+</pre>
+        
+        <p>Then init a generator for each name you want to generate:</p>
+        
+<pre>
+var my_klingon_name_a = new klingonName({
+    min_syllables:2,
+    max_syllables:3
+});
+
+var my_klingon_name_b = new klingonName({
+    min_syllables:2,
+    max_syllables:3
+});
+</pre>
+         
+     <h3>Available Options</h3>
+     
+     <ul>
+     
+        <li>min_syllables: Default is 2 </li>
+        <li>max_syllables: Default is 3</li>
+        <li>seed: Generator seed, default is 666</li>
+        <li>phoneme_weights: Array - List of one or more supported phoneme weights. Possible is male or female, default is []</li>
+        <li>phonemes: Array - Feel free to add your own or modified list of phonemes with different weights. Check out the klingonName.js for the default value.</li>
+        <li>syllables: Array - Feel free to add your own list of syllable configurations. Check out the klingonName.js for the default value.</li>
+     
+     </ul>
+         
+
+         <h3>Availabble Methods</h3>
+         
+         <p>Use public methods to get Data from the object:</p>
+         
+<pre>
+var random_name = my_klingon_name.getString();
+var random_ipa_name = my_klingon_name.getIpaString();
+var descriptions = my_klingon_name.getDescriptions();
+</pre>
+         
+         <ul>
+         
+            <li>string getString(bool hyphenation, bool split): Returns the full generated name as string</li>
+            <li>string getIpaString(bool hyphenation, bool split): Returns the full generated ipa string of the name</li>
+            <li>array getDescriptions(): Returns an array of objects containing the letter and the description, for each phoneme of the generated name [{string letter,string description},{...}] </li>
+            
+         </ul>
+        
+        <hr>
+        
+        <h2>Website integration</h2>
+        <p>If you have a website you can easily integrate the translator as an iframe:</p>
+<pre>
+&lt;iframe src="http://klingon.steampixel.de/app/" width="100%" height="550px" frameborder="0"&gt;&lt;/iframe&gt;
+</pre>
+
+        <h2>History and Background</h2>
+        <p>A few month ago i wrote a small android app to generate random klingon names. Just for fun and testing.
+        Than a few days later i’ve got mail from Lieven L. Litaer. He is Klingon teacher from Germany and he told me that my app is realy realy bad :-). 
+        It was just combining random Klingon consonants and vowels. So the names the app was generating cannot be spoken by any real Klingon. 
+        He gave me a few basic Klingon phonemic rules on how to build syllables, words and real Klingon names that can be spoken by a Klingon. 
+        With his support i was able to translate his rules into the web programming language JavaScript and released this as an web app. 
+        This is the second version of the generator. It uses a more stable JavaScript design pattern and provides an programming interface. 
+        So you can use this code inside your own apps. Have fun with the generator. If you have any idea how to improve it just write me a mail at info@steampixel.de.</p>
+        
+        <p>Thanks to Lieven L. Litaer: <a href="http://www.qephom.de/" target="_blank">http://www.qephom.de/</a></p>
+        
+      <footer>
+        <p>Created by <a href="http://steampixel.de" target="_blank">SteamPixel</a></p>
+      </footer>
+      
+    </div> <!-- /container -->        
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/klingonName.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
