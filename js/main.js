@@ -34,28 +34,32 @@ function render(){
         
     }
     
-    if(selected_gender=='male'){
-        html = html + 'son of ';
-    }else{
-        html = html + 'daughter of ';
-    }
+    if($('#last_name').val()!=''||current_mode=='random'){
     
-    html = html + '<b>'+father_name.getString(enable_hyphenation,enable_split) + '</b> '; 
-    
-    if(enable_ipa){
+        if(selected_gender=='male'){
+            html = html + 'son of ';
+        }else{
+            html = html + 'daughter of ';
+        }
         
-        html = html + '['+father_name.getIpaString(enable_hyphenation,enable_split) + '] ';
+        html = html + '<b>'+father_name.getString(enable_hyphenation,enable_split) + '</b> '; 
         
-    }
-    
-    html = html + 'of house ';
-    
-    html = html + '<b>'+house_name.getString(enable_hyphenation,enable_split)+'</b>'; 
-    
-    if(enable_ipa){
+        if(enable_ipa){
+            
+            html = html + '['+father_name.getIpaString(enable_hyphenation,enable_split) + '] ';
+            
+        }
         
-        html = html + '['+house_name.getIpaString(enable_hyphenation,enable_split) + '] ';
+        html = html + 'of house ';
         
+        html = html + '<b>'+house_name.getString(enable_hyphenation,enable_split)+'</b>'; 
+        
+        if(enable_ipa){
+            
+            html = html + '['+house_name.getIpaString(enable_hyphenation,enable_split) + '] ';
+            
+        }
+    
     }
     
     $('#name_display').html(html);
@@ -65,8 +69,11 @@ function render(){
         var all_descriptions = new Array();
         
         all_descriptions = all_descriptions.concat(first_name.getDescriptions());
-        all_descriptions = all_descriptions.concat(father_name.getDescriptions());
-        all_descriptions = all_descriptions.concat(house_name.getDescriptions());
+        
+        if($('#last_name').val()!=''||current_mode=='random'){
+            all_descriptions = all_descriptions.concat(father_name.getDescriptions());
+            all_descriptions = all_descriptions.concat(house_name.getDescriptions());
+        }
         
         var letter_unique_list = new Array();
 
@@ -103,7 +110,7 @@ function generateNameString(){
     //Get selected gender
     var selected_gender = $( "#select_gender option:selected" ).attr('value');
     
-    console.log(selected_gender);
+    //console.log(selected_gender);
     
     if(current_mode=='random'){
 
@@ -112,7 +119,7 @@ function generateNameString(){
             max_syllables:3,
             phoneme_weights:[selected_gender]
         });
-
+        
         father_name = new klingonName({
             min_syllables:2,
             max_syllables:3,
@@ -123,7 +130,7 @@ function generateNameString(){
             min_syllables:2,
             max_syllables:3
         });
-        
+
     }else{
         
         first_name = new klingonName({
@@ -132,19 +139,22 @@ function generateNameString(){
             phoneme_weights:[selected_gender],
             translate:$('#first_name').val()
         });
+        
+        if($('#last_name').val()!=''){
+        
+            father_name = new klingonName({
+                min_syllables:2,
+                max_syllables:3,
+                phoneme_weights:['male'],//Der Vater ist immer männlich,
+                translate:$('#last_name').val().concat('father')//Der Name des Vaters basiert auch auf dem Nachnamen. Damit er anders ist als der Hausname wird noch ein 'father' angehangen.
+            });
 
-        father_name = new klingonName({
-            min_syllables:2,
-            max_syllables:3,
-            phoneme_weights:['male'],//Der Vater ist immer männlich,
-            translate:$('#last_name').val().concat('father')//Der Name des Vaters basiert auch auf dem Nachnamen. Damit er anders ist als der Hausname wird noch ein 'father' angehangen.
-        });
-
-        house_name = new klingonName({
-            min_syllables:2,
-            max_syllables:3,
-            translate:$('#last_name').val()
-        });
+            house_name = new klingonName({
+                min_syllables:2,
+                max_syllables:3,
+                translate:$('#last_name').val()
+            });
+        }
         
     }
     

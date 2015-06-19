@@ -154,7 +154,7 @@ var klingonName = function (config) {
         if(typeof weights =='undefined'){weights = new Array();}
         if(typeof except =='undefined'){except = new Array();}
         
-        console.log(typeof except);
+        //console.log(typeof except);
         
         //Phonem Gewichtungen aus der Konfiguration hinzufügen
         //So ist es zum Beispiel möglich die Gewichtung 'male' oder 'female' an die Klasse zu übergeben
@@ -167,7 +167,7 @@ var klingonName = function (config) {
             //Wenn das Phonem nicht gezogen werden darf wird die Gewichtung mit 0 initialisiert
             if(except.indexOf(config.phonemes[i].letter)!=-1){//Wenn das Phonem auf der except liste steht...
                config.phonemes[i].weights.added_weight = 0;
-               console.log('except: '+config.phonemes[i].letter);
+               //console.log('except: '+config.phonemes[i].letter);
             }else{
                config.phonemes[i].weights.added_weight = 1;
             }
